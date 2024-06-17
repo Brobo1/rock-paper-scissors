@@ -18,6 +18,8 @@ const rand = () => {
   return compOpt[random];
 };
 
+const displyScore = () => {};
+
 const playRound = (player) => {
   const comp = rand();
   console.log(player, comp);
