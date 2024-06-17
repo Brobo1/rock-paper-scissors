@@ -2,6 +2,9 @@ const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
 const btns = document.querySelectorAll("button");
+const humanScoreElem = document.getElementById("human-score");
+const compScoreElem = document.getElementById("computer-score");
+const round = document.getElementById("round");
 
 const opts = {
   rock: { beats: "scissors", loses: "paper" },
@@ -18,25 +21,33 @@ const rand = () => {
   return compOpt[random];
 };
 
-const displyScore = () => {};
+const displayScore = (winner) => {
+  if (winner === 1) {
+    humanScoreElem.innerText = `Human score: ${humanScore}`;
+    round.innerHTML = `<p>Human wins!</p> ${round.innerHTML}`;
+  } else if (winner === -1) {
+    compScoreElem.innerText = `${compScore}: Computer score`;
+    round.innerHTML = `<p>Computer wins!</p> ${round.innerHTML}`;
+  } else {
+    round.innerHTML = `<p>Draw!</p> ${round.innerHTML}`;
+  }
+};
 
 const playRound = (player) => {
   const comp = rand();
-  console.log(player, comp);
   if (opts[player].beats === comp) {
     humanScore++;
-    return "player won";
+    return 1;
   } else if (opts[comp].beats === player) {
     compScore++;
-    return "computer won";
+    return -1;
   } else {
-    return "draw";
+    return 0;
   }
 };
 
 btns.forEach((btn) =>
   btn.addEventListener("click", () => {
-    console.log(playRound(btn.id));
-    console.log(humanScore, compScore);
+    displayScore(playRound(btn.id));
   }),
 );
