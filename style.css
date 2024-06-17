@@ -28,15 +28,25 @@ button {
   text-align: end;
 }
 
-#round {
-  color: #d8d8d8;
+#rounds {
   display: flex;
   flex-direction: column;
 }
 
-#round p {
+.round {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+#rounds p {
   padding: 0;
+  color: #d8d8d8;
   margin: 0;
-  text-align: center;
+  font-weight: 300;
+}
+#rounds h2 {
+  padding: 0;
+  color: #d8d8d8;
   font-weight: 300;
 }
