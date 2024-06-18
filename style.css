@@ -31,12 +31,16 @@ button {
 #rounds {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .round {
-  display: flex;
+  display: grid;
+  width: 600px;
   gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-between;
+  text-align: center;
 }
 
 #rounds p {

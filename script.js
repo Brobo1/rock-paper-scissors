@@ -4,7 +4,8 @@ const scissors = document.getElementById("scissors");
 const btns = document.querySelectorAll("button");
 const humanScoreElem = document.getElementById("human-score");
 const compScoreElem = document.getElementById("computer-score");
-const round = document.getElementById("rounds");
+const rounds = document.getElementById("rounds");
+
 let rematchBtn = document.createElement("button");
 
 const opts = {
@@ -24,74 +25,60 @@ const rand = () => {
 };
 
 const displayScore = (winner) => {
-  if (winner === 1) {
-    humanScoreElem.innerText = `Human score: ${humanScore}`;
-    round.innerHTML = `
-    <div class="round">
-      <p>Human wins!</p>
-      <p>${roundNum}</p>
-    </div>
-      ${round.innerHTML}
-    `;
-  } else if (winner === -1) {
-    compScoreElem.innerText = `${compScore}: Computer score`;
-    round.innerHTML = `
-    <div class="round">
-      <p>Computer wins!</p>
-      <p>${roundNum}</p>
-    </div>
-      ${round.innerHTML}
-    `;
-  } else {
-    round.innerHTML = `
-    <div class="round">
-      <p>Draw!</p>
-      <p>${roundNum}</p>
-    </div>
-      ${round.innerHTML}
-    `;
-  }
-};
+  let state;
 
+  if (winner.state === 1) {
+    humanScoreElem.innerText = `Human score: ${humanScore}`;
+    state = `Human wins`;
+  } else if (winner.state === -1) {
+    compScoreElem.innerText = `${compScore}: Computer score`;
+    state = `Computer wins`;
+  } else {
+    state = "Draw";
+  }
+  rounds.innerHTML = `
+    <div class="round">
+        <p>Human chose: ${winner.player}</p>
+        <p>${state}</p>
+        <p>Computer chose: ${winner.comp}</p>
+    </div>
+      ${rounds.innerHTML}
+    `;
+};
 const playRound = (player) => {
   const comp = rand();
   if (opts[player].beats === comp) {
     humanScore++;
-    return 1;
+    return { state: 1, player: player, comp: comp };
   } else if (opts[comp].beats === player) {
     compScore++;
-    return -1;
+    return { state: -1, player: player, comp: comp };
   } else {
-    return 0;
+    return { state: 0, player: player, comp: comp };
+  }
+};
+
+const end = () => {
+  let winner;
+  if (humanScore === 5 || compScore === 5) {
+    btns.forEach((btn) => (btn.disabled = true));
+    if (humanScore === 5) {
+      winner = "Human";
+    }
+    if (compScore === 5) {
+      winner = "Computer";
+    }
+    rounds.innerHTML = `
+          <h2>${winner} wins!</h2>
+        ${rounds.innerHTML}
+      `;
+    rematch();
   }
 };
 
 const rematch = () => {
   rematchBtn.textContent = "Rematch?";
-  round.prepend(rematchBtn);
-};
-
-const end = () => {
-  if (humanScore === 5 || compScore === 5) {
-    btns.forEach((btn) => (btn.disabled = true));
-    if (humanScore === 5) {
-      round.innerHTML = `
-        <div class="round">
-          <h2>Human wins!</h2>
-        </div>
-        ${round.innerHTML}
-      `;
-    }
-    if (compScore === 5) {
-      round.innerHTML = `
-        <div class="round">
-          <h2>Computer wins!</h2>
-        </div>
-        ${round.innerHTML}
-      `;
-    }
-    rematch();
-  }
+  rounds.prepend(rematchBtn);
 };
 
 btns.forEach((btn) =>
@@ -101,10 +88,12 @@ btns.forEach((btn) =>
     end();
   }),
 );
+
 rematchBtn.addEventListener("click", () => {
   btns.forEach((btn) => (btn.disabled = false));
-
   humanScore = 0;
   compScore = 0;
-  console.log("sadasd");
+  humanScoreElem.innerText = `Human score: ${humanScore}`;
+  compScoreElem.innerText = `${compScore}: Computer score`;
+  rounds.innerHTML = "";
 });
