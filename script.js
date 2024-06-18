@@ -12,14 +12,14 @@ const opts = {
 let humanScore = 0;
 let compScore = 0;
 
-const rand = () => {
+const getComputerChoice = () => {
   const compOpt = ["rock", "paper", "scissors"];
   const random = Math.floor(Math.random() * compOpt.length);
   return compOpt[random];
 };
 
 const playRound = (player) => {
-  const comp = rand();
+  const comp = getComputerChoice();
   console.log(player, comp);
   if (opts[player].beats === comp) {
     humanScore++;
