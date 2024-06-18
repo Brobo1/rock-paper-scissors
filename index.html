@@ -1,15 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <title>Title</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="container">
-      <button id="rock">Rock</button>
-      <button id="paper">Paper</button>
-      <button id="scissors">Scissors</button>
+      <div id="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+      </div>
+      <div id="scores">
+        <h2 id="human-score">Human score: 0</h2>
+        <div id="divider">
+          <h2>|</h2>
+        </div>
+        <h2 id="computer-score">0: Computer score</h2>
+      </div>
+      <div id="rounds"></div>
     </div>
     <script src="script.js"></script>
   </body>
